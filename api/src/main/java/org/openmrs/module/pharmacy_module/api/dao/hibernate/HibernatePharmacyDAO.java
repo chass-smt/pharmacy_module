@@ -7,15 +7,19 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.openmrs.Drug;
 import org.openmrs.module.pharmacy_module.api.dao.PharmacyModuleDAO;
 import org.openmrs.module.pharmacy_module.api.model.DrugTransactions;
 import org.openmrs.module.pharmacy_module.api.model.DrugsStore;
 import org.openmrs.module.pharmacy_module.api.model.DrugsStoreIncoming;
 import org.openmrs.module.pharmacy_module.api.model.DrugsStoreOutgoing;
+import org.openmrs.module.pharmacy_module.api.model.LocationSetter;
 import org.openmrs.module.pharmacy_module.api.model.PharmacyLocations;
 import org.openmrs.module.pharmacy_module.api.model.PharmacyTransactionTypes;
+//import org.openmrs.module.pharmacy_module.api.model.PharmacyTransactionTypes;
 
 /**
  * @author nhagumbex
@@ -26,6 +30,7 @@ public class HibernatePharmacyDAO implements PharmacyModuleDAO {
 	
 	 @SuppressWarnings("unused")
 	    private static final Log log = LogFactory.getLog(HibernatePharmacyDAO.class);
+	    private LocationSetter loc = new LocationSetter();
 	    private SessionFactory sessionFactory;
 
 	    /**
@@ -47,17 +52,21 @@ public class HibernatePharmacyDAO implements PharmacyModuleDAO {
 	 */
 	@Override
 	public DrugsStore saveDrugsStore(DrugsStore drugsStore) {
-		// TODO Auto-generated method stub
-		return null;
+		sessionFactory.getCurrentSession().saveOrUpdate(drugsStore);
+
+		return drugsStore;
 	}
 
 	/* (non-Javadoc)
 	 * @see org.openmrs.module.pharmacy_module.api.dao.PharmacyModuleDAO#getDrugsStores()
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<DrugsStore> getDrugsStores() {
-		// TODO Auto-generated method stub
-		return null;
+	   Criteria criteria = sessionFactory.getCurrentSession().createCriteria(DrugsStore.class)
+                .add(Restrictions.eq("voided", false));
+
+        return criteria.list();
 	}
 
 	/* (non-Javadoc)
@@ -65,19 +74,12 @@ public class HibernatePharmacyDAO implements PharmacyModuleDAO {
 	 */
 	@Override
 	public List<DrugsStore> getDrugsStoresById(Integer id) {
-		// TODO Auto-generated method stub
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(DrugsStore.class)
+				.add(Restrictions.eq("id", id));
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.openmrs.module.pharmacy_module.api.dao.PharmacyModuleDAO#getDrugsStoreByName(org.openmrs.Drug)
-	 */
-	@Override
-	public List<DrugsStore> getDrugsStoreByName(Drug drug) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	/* (non-Javadoc)
 	 * @see org.openmrs.module.pharmacy_module.api.dao.PharmacyModuleDAO#saveDrugsStoreIncoming(org.openmrs.module.pharmacy_module.api.model.DrugsStoreIncoming)
 	 */
@@ -112,7 +114,6 @@ public class HibernatePharmacyDAO implements PharmacyModuleDAO {
 	@Override
 	public DrugsStoreOutgoing saveDrugsStoreOutgoing(
 			DrugsStoreOutgoing drugsStoreOutgoing) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -189,5 +190,63 @@ public class HibernatePharmacyDAO implements PharmacyModuleDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
+
+	@Override
+	public DrugsStoreIncoming getDrugStoreIncomingByUuid(String uuid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public DrugsStoreOutgoing getDrugStoreOutgoingByUuid(String uuid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public DrugsStore saveInventory(DrugsStore drugsStore) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean saveInventory(List drugsStores) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List getInventory() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public DrugsStore getInventoryByUuid(String uuid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<DrugsStore> getInventoryListByUuid(String uuid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public DrugsStore getInventoryByDrugUuid(Drug uuid, String location) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<DrugsStore> getDrugsStoreByName(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 
 }

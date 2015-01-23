@@ -15,7 +15,7 @@ import org.openmrs.module.pharmacy_module.api.model.PharmacyTransactionTypes;
 
 /**
  * @author Xavier Francisco
- *
+ * *
  */
 
 public interface PharmacyModuleDAO {
@@ -39,7 +39,12 @@ public interface PharmacyModuleDAO {
 	 */
 	public List<DrugsStore> getDrugsStoresById(Integer id);
 	
-	public List<DrugsStore> getDrugsStoreByName(Drug drug);
+	
+	/**
+	 * @param drug
+	 * @return
+	 */
+	public List<DrugsStore> getDrugsStoreByName(String name);
 	
 	/**
 	 * @param drugsStoreIncoming
@@ -52,6 +57,13 @@ public interface PharmacyModuleDAO {
 	 * @return all DrugsStoreIncoming
 	 */
 	public List<DrugsStoreIncoming> getDrugsStoreIncomings();
+	
+	
+	/**
+	 * @param uuid
+	 * @return
+	 */
+	public DrugsStoreIncoming getDrugStoreIncomingByUuid(String uuid);
 	
 	/**
 	 * @param drug
@@ -71,6 +83,12 @@ public interface PharmacyModuleDAO {
 	 * @return all DrugsStoreOutgoing
 	 */
 	public List<DrugsStoreOutgoing> getDrugsStoreOutgoings();
+			
+	/**
+	 * @param uuid
+	 * @return
+	 */
+	public DrugsStoreOutgoing getDrugStoreOutgoingByUuid(String uuid);
 	
 	/**
 	 * @param drug
@@ -111,5 +129,49 @@ public interface PharmacyModuleDAO {
 	 * @return
 	 */
 	public List<PharmacyTransactionTypes> getPharmacyTransactionTypes();
+	
+
+    /**
+     * @param drugsStore
+     * @return
+     */
+    public DrugsStore saveInventory(DrugsStore drugsStore);
+    
+
+    /**
+     * @param drugsStores
+     * @return
+     */
+    public boolean saveInventory(List<DrugsStore> drugsStores);
+
+   
+    /**
+     * @return
+     */
+    public List<DrugsStore> getInventory();
+
+    
+    /**
+     * @param uuid
+     * @return
+     */
+    public DrugsStore getInventoryByUuid(String uuid);
+
+    /**
+     * @param uuid
+     * @return
+     */
+     
+    public List<DrugsStore> getInventoryListByUuid(String uuid);
+       
+    /**
+     * @param uuid
+     * @param location
+     * @return
+     */
+    public DrugsStore getInventoryByDrugUuid(Drug uuid,String location);
+    
+   
+    
 
 }
